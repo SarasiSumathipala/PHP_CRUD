@@ -15,12 +15,12 @@
 
     if ( $User->create( $fieldsToAdd ) ) {
         $json = array(
-            'statement' => 'valid',
+            'info' => 'valid',
             'msg' => 'User added successfully'
         );
     } else {
         $json = array(
-            'statement' => 'void',
+            'info' => 'void',
             'msg' => 'Error creating user'
         );
     }

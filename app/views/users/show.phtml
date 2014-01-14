@@ -1,12 +1,6 @@
-<?php 
-    include 'app/models/User.php'; 
-    $User = new User;
-    $rowFindUser = $User->find( ( isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : '' ) );
-?>
-
 <h1>CRUD List Users</h1><br/>
 
-<a href="?section=users&page=new" class="btn btn-success">Create User</a><br/><br/>
+<a href="?controller=users&action=create" class="btn btn-success">Create User</a><br/><br/>
 
 <div class="show-container">
     <div class="left">
@@ -16,14 +10,14 @@
         <span class="label label-info">Email</span><br>
     </div>
     <div class="right">
-        <span class="label label-silver"><?php echo $rowFindUser[ 'id' ]; ?></span><br>
-        <span class="label label-silver"><?php echo $rowFindUser[ 'username' ]; ?></span><br>
-        <span class="label label-silver"><?php echo $rowFindUser[ 'password' ]; ?></span><br>
-        <span class="label label-silver"><?php echo $rowFindUser[ 'email' ]; ?></span><br>
+        <span class="label label-silver"><?php echo $User[ 'id' ]; ?></span><br>
+        <span class="label label-silver"><?php echo $User[ 'username' ]; ?></span><br>
+        <span class="label label-silver"><?php echo $User[ 'password' ]; ?></span><br>
+        <span class="label label-silver"><?php echo $User[ 'email' ]; ?></span><br>
     </div>
     <div class="actions">
-        <a href="?section=users&page=edit&id=<?php echo $rowFindUser[ 'id' ] ?>" class="btn btn-warning">Edit</a>
-        <button data-id="<?php echo $rowFindUser[ 'id' ] ?>" class="btn btn-danger" onclick="destroyUser( $( this ) )">Destroy</button>
-        <a href="index.php" class="btn btn-inverse">Back</a>
+        <a href="?controller=users&action=edit&id=<?php echo $User[ 'id' ] ?>" class="btn btn-warning">Edit</a>
+        <button data-id="<?php echo $User[ 'id' ] ?>" class="btn btn-danger" onclick="destroyUser( $( this ) )">Destroy</button>
+        <a href="./" class="btn btn-inverse">Back</a>
     </div>
 </div>

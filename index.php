@@ -1,3 +1,13 @@
+<?php
+  include_once( './core/Config.php' );
+  Config::loadCore();
+
+  if ( Config::isAjax() ) {
+    Bootstrap::init();
+    die();
+  }
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,24 +18,7 @@
 </head>
 <body>
 
-  <?php
-    if ( isset( $_GET[ 'section' ] ) && !empty( $_GET[ 'section' ] ) ) {
-
-      if ( is_dir( 'app/views/'. $_GET[ 'section' ] ) ) {
-
-        if ( isset( $_GET[ 'page' ] ) && !empty( $_GET[ 'page' ] ) )
-
-          if ( is_readable( 'app/views/'. $_GET[ 'section' ] .'/'. $_GET[ 'page' ] .'.phtml' ) ) include 'app/views/'. $_GET[ 'section' ] .'/'. $_GET[ 'page' ] .'.phtml';
-          else echo '<h1>Error 404 - Page Not Found</h1>';
-
-        else
-          include 'app/views/'. $_GET[ 'section' ] .'/index.phtml';
-
-      } else
-        echo '<h1>Error 404 - Page Not Found</h1>';
-    } else
-      include 'app/views/users/index.phtml';
-  ?>
+  <?php Bootstrap::init(); ?>
 
   <script type="text/javascript" src="app/assets/javascripts/jquery.min.js"></script>
   <script type="text/javascript" src="app/assets/javascripts/users.js"></script>

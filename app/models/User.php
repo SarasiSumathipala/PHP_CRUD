@@ -1,36 +1,27 @@
 <?php
 
-    require 'Database.class.php';
-
     /**
     * 
     */
-    class User extends Database {
+    class User extends Database implements iDatabase {
 
-        protected $link;
         private static $table = 'users';
-        
+        private static $sTable = 'user';
+
         public function __construct() {
-            $this->link = parent::connection();
         }
 
-        public function find(
-            $value,
-            $options = array(
-                'where' => 'id',
-                'many?' => false
-            )
-        ) {
-            if ( !isset( $options[ 'many?' ] ) || !$options[ 'many?' ] ) {
-                $SQL = "SELECT * FROM ". self::$table ." WHERE ". $options[ 'where' ] ."='". $value ."' LIMIT 1";
-                return( parent::findOne( $SQL, $this->link ) );
-            } else {
-                $SQL = "SELECT * FROM ". self::$table ." ORDER BY id ASC";
-                return( parent::findMany( $SQL, $this->link ) );
-            }
+        static public function find( $value, $where = 'id' ) {
+            $SQL = "SELECT * FROM ". self::$table ." WHERE ". $where ."='". $value ."' LIMIT 1";
+            return( parent::findOne( $SQL ) );
         }
 
-        public function create(
+        static public function all( $orderby = 'id', $order = 'ASC' ) {
+            $SQL = "SELECT * FROM ". self::$table ." ORDER BY ". $orderby .' '. $order;
+            return( parent::findMany( $SQL ) );
+        }
+
+        static public function create(
             $fieldsToAdd = array(
                 'username' => null,
                 'password' => null,
@@ -38,10 +29,10 @@
             )
         ) {
             $SQL = "INSERT INTO ". self::$table ." VALUES( '', '". $fieldsToAdd[ 'username' ] ."', '". md5( $fieldsToAdd[ 'password' ] ) ."', '". $fieldsToAdd[ 'email' ] ."' )";
-            return( parent::createNew( $SQL, $this->link ) );
+            return( parent::createNew( $SQL, parent::link() ) );
         }
 
-        public function update(
+        static public function update(
             $id,
             $fieldsToAdd = array(
                 'username' => null,
@@ -58,17 +49,15 @@
                 $i++;
             }
             $SQL .= " WHERE id=". $id ." LIMIT 1";
-            return( parent::updates( $SQL, $this->link ) );
+            return( parent::updates( $SQL, parent::link() ) );
         }
 
-        public function destroy( $id ) {
+        static public function destroy( $id ) {
             $SQL = "DELETE FROM users WHERE id='$id' LIMIT 1";
-            return( parent::delete( $SQL, $this->link ) );
+            return( parent::delete( $SQL, parent::link() ) );
         }
 
         public function __destruct() {
-            $this->link->close();
+            parent::link()->close();
         }
     }
-
-?>

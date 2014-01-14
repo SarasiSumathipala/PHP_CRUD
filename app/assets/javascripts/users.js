@@ -27,12 +27,12 @@ jQuery( function( $ ) {
                     type : 'POST',
                     dataType : 'json',
                     data : $src,
-                    url : 'app/models/user/new.ajax.php',
+                    url : '?controller=users&action=adding&format=json',
                     success : function( response ) {
-                        if ( response.statement == 'valid' ) {
+                        if ( response.info == 'success' ) {
                             alert( response.msg );
-                            window.location.href = "index.php";
-                        } else if ( response.statement == 'void' ) {
+                            window.location.href = "./";
+                        } else if ( response.info == 'error' ) {
                             alert( response.msg );
                         }
                     }
@@ -74,13 +74,13 @@ jQuery( function( $ ) {
                 cache : false,
                 type : 'POST',
                 dataType : 'json',
-                data : $src +'&action='+ $formEditUser.data( 'action' ),
-                url : 'app/models/user/edit.ajax.php',
+                data : $src,
+                url : '?controller=users&action=update&format=json',
                 success : function( response ) {
-                    if ( response.statement == 'valid' ) {
+                    if ( response.info == 'success' ) {
                         alert( response.msg );
-                        window.location.href = "index.php";
-                    } else if ( response.statement == 'void' ) {
+                        window.location.href = "./";
+                    } else if ( response.info == 'error' ) {
                         alert( response.msg );
                     }
                 }
@@ -101,12 +101,12 @@ function checkUserOrEmail( that ) {
         type : 'POST',
         dataType : 'json',
         data : 'type='+ type +'&q='+ q,
-        url : 'app/models/user/checkNew.ajax.php',
+        url : '?controller=users&action=check&format=json',
         success : function( response ) {
-            if ( response.statement == 'valid' ) {
+            if ( response.info == 'success' ) {
                 $checkUserOrEmail = true;
                 that.parent().find( 'span.tooltip-form' ).empty().hide( 'fast' );
-            } else if ( response.statement == 'void' ) {
+            } else if ( response.info == 'token' ) {
                 $checkUserOrEmail = true;
                 that.parent().find( 'span.tooltip-form' ).empty().html( response.msg ).show( 'fast' );
             }
@@ -125,12 +125,12 @@ function destroyUser( that ) {
             type : 'POST',
             dataType : 'json',
             data : 'id='+ id,
-            url : 'app/models/user/destroy.ajax.php',
+            url : '?controller=users&action=delete&format=json',
             success : function( response ) {
-                if ( response.statement == 'valid' ) {
+                if ( response.info == 'success' ) {
                     alert( response.msg );
-                    window.location.href = "index.php";
-                } else if ( response.statement == 'void' ) {
+                    window.location.href = "./";
+                } else if ( response.info == 'error' ) {
                     alert( response.msg );
                 }
             }

@@ -1,12 +1,6 @@
-<?php 
-    include 'app/models/User.php'; 
-    $User = new User;
-    $findAllUsers = $User->find( null, array( 'many?' => true ) );
-?>
-
 <h1>CRUD List Users</h1><br/>
 
-<a href="?section=users&page=new" class="btn btn-success">Create User</a><br/><br/>
+<a href="?controller=users&action=create" class="btn btn-success">Create User</a><br/><br/>
 
 <table class="table table-condesed table-hover table-striped table-bordered">
     <thead>
@@ -20,18 +14,18 @@
     </thead>
     <tbody>
         <?php 
-            if ( !is_null( $findAllUsers ) ) {
-                while ( $rowFindUser = $findAllUsers->fetch_assoc() ) {
+            if ( !is_null( $Users ) ) {
+                while ( $user = $Users->fetch_assoc() ) {
         ?>
         <tr>
-            <td><?php echo $rowFindUser[ 'id' ]; ?></td>
-            <td><?php echo $rowFindUser[ 'username' ]; ?></td>
-            <td><?php echo $rowFindUser[ 'password' ]; ?></td>
-            <td><?php echo $rowFindUser[ 'email' ]; ?></td>
+            <td><?php echo $user[ 'id' ]; ?></td>
+            <td><?php echo $user[ 'username' ]; ?></td>
+            <td><?php echo $user[ 'password' ]; ?></td>
+            <td><?php echo $user[ 'email' ]; ?></td>
             <td>
-                <a href="?section=users&page=show&id=<?php echo $rowFindUser[ 'id' ] ?>" class="btn btn-info">Show</a>
-                <a href="?section=users&page=edit&id=<?php echo $rowFindUser[ 'id' ] ?>" class="btn btn-warning">Edit</a>
-                <button data-id="<?php echo $rowFindUser[ 'id' ] ?>" class="btn btn-danger" onclick="destroyUser( $( this ) )">Destroy</button>
+                <a href="?controller=users&action=show&id=<?php echo $user[ 'id' ] ?>" class="btn btn-info">Show</a>
+                <a href="?controller=users&action=edit&id=<?php echo $user[ 'id' ] ?>" class="btn btn-warning">Edit</a>
+                <button data-id="<?php echo $user[ 'id' ] ?>" class="btn btn-danger" onclick="destroyUser( $( this ) )">Destroy</button>
             </td>
         </tr>
         <?php
