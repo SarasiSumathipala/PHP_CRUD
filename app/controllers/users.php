@@ -19,7 +19,7 @@
         }
 
         public function create( $params ) {
-            View::setLayout( false );
+            // View::setLayout( false );
         }
 
         public function edit( $params ) {
