@@ -39,7 +39,7 @@
                 $objController = ( class_exists( $controller ) ) ? new $controller : NULL;
 
                 Controller::prepareItems( $objController, $action );
-                View::render();
+                View::render( $objController, $action );
             } else {
                 die( 'The "' . $controller . '" Controller is missing' );
             }

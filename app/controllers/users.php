@@ -3,7 +3,7 @@
     /**
     * 
     */
-    class Users extends Controller implements iController {
+    class Users extends Controller {
 
         public function __construct() {
         }
@@ -13,10 +13,13 @@
                 'Users' => User::all(),
                 'other' => 'my other var'
             );
-            parent::setVarstoRender( $varsToRender );
+            $this->setVarstoRender( $varsToRender );
+            // $this->setView( 'create' );
+            // View::setLayout( false );
         }
 
         public function create( $params ) {
+            View::setLayout( false );
         }
 
         public function edit( $params ) {
@@ -24,7 +27,7 @@
             $varsToRender = array(
                 'User' => User::find( $id )
             );
-            parent::setVarstoRender( $varsToRender );
+            $this->setVarstoRender( $varsToRender );
         }
 
         public function editPassword( $params ) {
@@ -32,7 +35,7 @@
             $varsToRender = array(
                 'User' => User::find( $id )
             );
-            parent::setVarstoRender( $varsToRender );
+            $this->setVarstoRender( $varsToRender );
         }
 
         public function show( $params ) {
@@ -40,7 +43,7 @@
             $varsToRender = array(
                 'User' => User::find( $id )
             );
-            parent::setVarstoRender( $varsToRender );
+            $this->setVarstoRender( $varsToRender );
         }
 
         public function update( $params ) {

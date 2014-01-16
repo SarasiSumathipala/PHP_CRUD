@@ -14,20 +14,12 @@
      */
     abstract class Database implements iDatabase {
 
-        /**
-         * [$host description]
-         * @var string
-         */
         public static $host = 'localhost';
         public static $user = 'root';
         public static $pass = '1234abcd';
         public static $name = 'crud_mvc';
         private static $link = NULL;
         
-        /**
-         * [connection description]
-         * @return [type]
-         */
         public static function link() {
             if ( !( self::$link instanceof mysqli ) ) {
                 self::$link = new mysqli( self::$host, self::$user, self::$pass, self::$name );
@@ -36,12 +28,6 @@
             return( self::$link );
         }
 
-        /**
-         * Find One Resource Unique from Query SQL
-         * @param  [ String ] $SQL [ Query SQL ]
-         * @param  [ Object ] $link [ Connection Object ]
-         * @return [ Array ] [ Rows Resource Query if is true ]
-         */
         public static function findOne( $SQL ) {
             if ( !is_null( $SQL ) ) {
 
@@ -57,12 +43,6 @@
                 return( false );
         }
 
-        /**
-         * Find Many Resource from Query SQL
-         * @param  [ String ] $SQL [ Query SQL ]
-         * @param  [ Object ] $link [ Connection Object ]
-         * @return [ Object ] [ Resource Query if is true ]
-         */
         public static function findMany( $SQL ) {
             if ( !is_null( $SQL ) ) {
 

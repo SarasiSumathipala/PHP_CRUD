@@ -1,45 +1,57 @@
 <?php
-
     interface iController {
-        static public function getVarstoRender();
-        static public function setVarstoRender( $varstoRender );
+        public function getVarstoRender();
+        public function setVarstoRender( $varstoRender );
     }
 
     /**
     * 
     */
     abstract class Controller implements iController {
-
-        private static $varstoRender = array();
-        private static $actionAlternative = array(
+        private $varstoRender = array();
+        private $actionAlternative = array(
             'new' => 'create',
             'modificar' => 'edit',
             'edit-password' => 'editPassword'
         );
+        private $view;
 
-        static public function getAction( $action ) {
-            foreach ( self::$actionAlternative as $key => $value ) {
+        public function getAction( $action ) {
+            foreach ( $this->actionAlternative as $key => $value ) {
                 if ( $action == $key ) {
                     $action = $value;
+                    break;
                 }
             }
             
             return( $action );
         }
+
+        public function setView( $view ) {
+          $this->view = $view;
+        }
+
+        public function getView( $action ) {
+            if ( empty( $this->view ) ) {
+              return( $this->getAction( $action ) );
+            }
+
+            return( $this->view );
+        }
         
-        static public function getVarstoRender() {
-            return( self::$varstoRender );
+        public function getVarstoRender() {
+            return( $this->varstoRender );
         }
 
-        static public function setVarstoRender( $varstoRender ) {
-            self::$varstoRender = $varstoRender;
+        public function setVarstoRender( $varstoRender ) {
+            $this->varstoRender = $varstoRender;
         }
 
-        static public function prepareItems( $objController, $action ) {
-            if ( !empty( $objController ) && !empty( $action ) ) {
-                $action = self::getAction( $action );
-                if ( method_exists( $objController, $action ) ) {
-                    $objController->$action( Config::getParams() );
+        public static function prepareItems( $objController, $action ) {
+            if ( !empty( $objController ) ) {
+                if ( !empty( $action ) && method_exists( $objController, $action ) ) {
+                  $action = $objController->getAction( $action );
+                  $objController->$action( Config::getParams() );
                 } else {
                     die( '<h1>The "' . $action . '" Action is invalid</h1>' );
                 }

@@ -1,11 +1,16 @@
 <?php
     defined( 'PATH' ) || define( 'PATH', realpath( './' ) );
     defined( 'APP_PATH' ) || define( 'APP_PATH', PATH . '/app/' );
-    defined( 'ASSETS_PATH' ) || define( 'ASSETS_PATH', APP_PATH . '/assets/' );
-    defined( 'CONTROLLERS_PATH' ) || define( 'CONTROLLERS_PATH', APP_PATH . '/controllers/' );
-    defined( 'MODELS_PATH' ) || define( 'MODELS_PATH', APP_PATH . '/models/' );
-    defined( 'VIEWS_PATH' ) || define( 'VIEWS_PATH', APP_PATH . '/views/' );
+    defined( 'ASSETS_PATH' ) || define( 'ASSETS_PATH', APP_PATH . 'assets/' );
+    defined( 'STYLESHEETS_PATH' ) || define( 'STYLESHEETS_PATH', ASSETS_PATH . 'stylesheets/' );
+    defined( 'JAVASCRIPTS_PATH' ) || define( 'JAVASCRIPTS_PATH', ASSETS_PATH . 'javascripts/' );
+    defined( 'CONTROLLERS_PATH' ) || define( 'CONTROLLERS_PATH', APP_PATH . 'controllers/' );
+    defined( 'MODELS_PATH' ) || define( 'MODELS_PATH', APP_PATH . 'models/' );
+    defined( 'VIEWS_PATH' ) || define( 'VIEWS_PATH', APP_PATH . 'views/' );
     defined( 'CORE_PATH' ) || define( 'CORE_PATH', PATH . '/core/' );
+
+    defined( 'CHARSET' ) || define( 'CHARSET', 'utf-8' );
+    defined( 'LANG' ) || define( 'LANG', 'en' );
 
     /**
     * Config
@@ -14,6 +19,7 @@
         private static $defaultController = 'users';
         private static $defaultAction = 'index';
         private static $params = array();
+        private static $titleDocument = 'CRUD MVC Testing';
 
         static public function setParams( $params ) {
             self::$params = $params;
@@ -36,7 +42,6 @@
         }
 
         static public function getController() {
-
             if ( !isset( $_GET[ 'controller' ] ) || empty( $_GET[ 'controller' ] ) || is_null( $_GET[ 'controller' ] ) ) return( self::getDefaultController() );
             return( $_GET[ 'controller' ] );
         }
@@ -48,7 +53,6 @@
 
         static public function loadCore( $corePath = CORE_PATH ) {
             $coreFiles = scandir( $corePath );
-
             foreach ( $coreFiles as $value ) {
                 if ( $value == '.' || $value == '..' || $value == 'Config.php' ) {
                     continue;
@@ -67,8 +71,15 @@
                 return( false );
             }
         }
-    }
 
+        static public function getTitleDocument() {
+            return( self::$titleDocument );
+        }
+
+        static public function setTitleDocument( $title ) {
+            self::$titleDocument = $title;
+        }
+    }
     
     defined( 'Controller' ) || define( 'Controller', Config::getController() );
     defined( 'Action' ) || define( 'Action', Config::getAction() );
