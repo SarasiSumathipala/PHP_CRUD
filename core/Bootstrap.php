@@ -15,10 +15,11 @@
         }
 
         static public function loadModels( $modelsPath = MODELS_PATH ) {
+            include_once( $modelsPath . 'Database.class.php' );
             $modelsFiles = scandir( $modelsPath );
 
             foreach ( $modelsFiles as $model ) {
-                if ( $model == '.' || $model == '..' ) {
+                if ( $model == '.' || $model == '..'|| $model == 'Database.class.php' ) {
                     continue;
                 } if ( is_dir( $modelsPath . $model ) ) {
                     //self::loadModels( $modelsPath . $model . '/' );

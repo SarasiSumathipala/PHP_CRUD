@@ -15,11 +15,11 @@
             );
             $this->setVarstoRender( $varsToRender );
             // $this->setView( 'create' );
-            // View::setLayout( false );
+            // View::setLayout( 'test-layout' );
         }
 
         public function create( $params ) {
-            // View::setLayout( false );
+            // View::setLayout( 'test-layout' );
         }
 
         public function edit( $params ) {
@@ -44,9 +44,11 @@
                 'User' => User::find( $id )
             );
             $this->setVarstoRender( $varsToRender );
+            View::setLayout( 'test-layout' );
         }
 
         public function update( $params ) {
+            View::setLayout( false );
             $id = ( isset( $params[ 'id' ] ) ) ? $params[ 'id' ] : '';
             $subAction = ( isset( $params[ 'sub-action' ] ) ) ? $params[ 'sub-action' ] : '';
             extract( $params[ 'users' ] );
@@ -85,6 +87,7 @@
         }
 
         public function delete( $params ) {
+            View::setLayout( false );
             if ( User::destroy( $params[ 'id' ] ) ) {
                 $json = array( 'info' => 'success', 'msg' => 'User deleted successfully' );
             } else {
@@ -110,6 +113,7 @@
         }
 
         public function adding( $params ) {
+            View::setLayout( false );
             $fieldsToAdd = $params[ 'users' ];
             extract( $fieldsToAdd );
             $fieldsToAdd = array(
@@ -145,6 +149,7 @@
         }
 
         public function check( $params ) {
+            View::setLayout( false );
             $type = $params[ 'type' ];
             $q = $params[ 'q' ];
             switch ( $type ) {

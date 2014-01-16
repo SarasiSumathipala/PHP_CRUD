@@ -5,14 +5,14 @@
     */
     class View {
 
-        private static $layout = true;
+        private static $layout = 'layouts';
         
         function __construct() {
             # code...
         }
 
         static public function render( $controller, $action ) {
-            if ( Config::isAjax() || !self::isLayout() ) {
+            if ( self::isLayout() === false ) {
                 self::loadView( $controller, $action );                
             } else {
                 Template::getHead();
@@ -39,6 +39,10 @@
 
         static public function setLayout( $layout ) {
             self::$layout = $layout;
+        }
+
+        static public function getLayout() {
+            return( self::$layout );
         }
 
         static public function isLayout() {

@@ -20,6 +20,7 @@
         private static $defaultAction = 'index';
         private static $params = array();
         private static $titleDocument = 'CRUD MVC Testing';
+        private static $format;
 
         static public function setParams( $params ) {
             self::$params = $params;
@@ -31,6 +32,16 @@
 
         static public function getParam( $param, $default = null ) {
             return( ( isset( self::$params[ $param ] ) ) ? self::$params[ $param ] : $default );
+        }
+
+        static public function setFormat( $format ) {
+            self::$format = $format;
+        }
+
+        static public function getFormat() {
+            $params = self::getParams();
+            $format = ( isset( $params[ 'format' ] ) ) ? $params[ 'format' ] : self::$format;
+            return( $format );
         }
 
         static public function getDefaultController() {

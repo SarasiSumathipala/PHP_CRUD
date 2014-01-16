@@ -3,10 +3,10 @@
     /**
     * 
     */
-    class User extends Database implements iDatabase {
+    class Book extends Database implements iDatabase {
 
-        private static $table = 'users';
-        private static $sTable = 'user';
+        private static $table = 'books';
+        private static $sTable = 'book';
 
         public function __construct() {
         }
@@ -23,21 +23,21 @@
 
         static public function create(
             $fieldsToAdd = array(
-                'username' => null,
-                'password' => null,
-                'email' => null
+                'title' => null,
+                'author' => null,
+                'isbn' => null
             )
         ) {
-            $SQL = "INSERT INTO ". self::$table ." VALUES( '', '". $fieldsToAdd[ 'username' ] ."', '". md5( $fieldsToAdd[ 'password' ] ) ."', '". $fieldsToAdd[ 'email' ] ."' )";
+            $SQL = "INSERT INTO ". self::$table ." VALUES( '', '". $fieldsToAdd[ 'title' ] ."', '". $fieldsToAdd[ 'author' ] ."', '". $fieldsToAdd[ 'isbn' ] ."' )";
             return( parent::createNew( $SQL, parent::link() ) );
         }
 
         static public function update(
             $id,
             $fieldsToAdd = array(
-                'username' => null,
-                'password' => null,
-                'email' => null
+                'title' => null,
+                'author' => null,
+                'isbn' => null
             )
         ) {
             $SQL = "UPDATE ". self::$table ." SET";
@@ -53,7 +53,7 @@
         }
 
         static public function destroy( $id ) {
-            $SQL = "DELETE FROM ". self::$table ." WHERE id='". $id ."' LIMIT 1";
+            $SQL = "DELETE FROM ". self::$table ." WHERE id='$id' LIMIT 1";
             return( parent::delete( $SQL, parent::link() ) );
         }
 
